@@ -10,6 +10,7 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "baseUrl": "./src",
+    "noImplicitAny": false,
     "paths": {
       "@images/*": ["./images/*"],
       "@libs/*": ["./libs/*"]

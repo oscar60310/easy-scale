@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader/root';
-import { TestComponent } from './test-component';
+import { PairDevice } from './pair-device';
+
 const AppComponent = () => {
   return (
     <div>
       React TS Pack Work!
-      <TestComponent />
+      <PairDevice />
     </div>
   );
 };
