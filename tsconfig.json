@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "allowJs": true,
+    "noEmit": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@images/*": ["./images/*"],
+      "@libs/*": ["./libs/*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./src/types"]
+  }
+}
