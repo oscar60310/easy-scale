@@ -16,5 +16,7 @@
       "@libs/*": ["./libs/*"]
     },
     "typeRoots": ["./node_modules/@types", "./src/types"]
-  }
+  },
+  "include": ["./src"],
+  "exclude": ["./node_modules"]
 }

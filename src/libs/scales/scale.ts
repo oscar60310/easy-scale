@@ -15,7 +15,7 @@ export enum Status {
   IDLE,
   CONNECTING,
   CONNECTED,
-  REVEIVING,
+  RECEIVING,
   FINISH,
   ERROR
 }
@@ -24,11 +24,13 @@ export interface Result {
   bodyFat?: number;
 }
 export abstract class Scale {
+  abstract readonly name: string;
   abstract config(c: ScaleConfig): void;
   protected abstract async getDevice(): Promise<BluetoothDevice>;
   protected abstract async startReceiveData(): Promise<void>;
   protected abstract async parseData(data: DataView): Promise<Result>;
   protected server: BluetoothRemoteGATTServer | null = null;
+
   public result: Result | null = null;
   public status = new BehaviorSubject(Status.IDLE);
   public async connect() {
@@ -43,7 +45,7 @@ export abstract class Scale {
   }
   public async startReceive() {
     try {
-      this.status.next(Status.REVEIVING);
+      this.status.next(Status.RECEIVING);
       this.startReceiveData();
     } catch (e) {
       this.handleError(e);

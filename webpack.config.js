@@ -45,9 +45,6 @@ module.exports = {
     })
   ],
   devServer: {
-    hot: true,
-    watchOptions: {
-      poll: 1000
-    }
+    hot: true
   }
 };
