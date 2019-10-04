@@ -50,10 +50,3 @@ workflows:
               only:
                 - master
                 - development
-      - deploy:
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - master
