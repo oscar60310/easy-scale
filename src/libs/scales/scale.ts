@@ -20,7 +20,8 @@ export enum Status {
   ERROR
 }
 export interface Result {
-  weight: number;
+  weight?: number;
+  bodyFat?: number;
 }
 export abstract class Scale {
   abstract config(c: ScaleConfig): void;

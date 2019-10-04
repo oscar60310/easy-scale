@@ -1,5 +1,9 @@
 import { Scale, ScaleConfig, Result } from './scale';
-
+/**
+ * YunmaiISM2 parser
+ * Reference from Open Scale
+ * https://github.com/oliexdev/openScale/blob/master/android_app/app/src/main/java/com/health/openscale/core/bluetooth/BluetoothYunmaiSE_Mini.java
+ */
 export class YunmaiISM2 extends Scale {
   public config = (c: ScaleConfig): void => {
     // this.connect();
@@ -25,8 +29,11 @@ export class YunmaiISM2 extends Scale {
   }
   protected async parseData(data: DataView): Promise<Result> {
     const weight = (data.getUint8(13) * 16 * 16 + data.getUint8(14)) / 100;
+    const bodyFat = data.getUint8(17) / 100;
+
     return {
-      weight
+      weight,
+      bodyFat
     };
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
