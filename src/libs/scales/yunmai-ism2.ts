@@ -1,4 +1,5 @@
-import { Scale, ScaleConfig, Result, Status } from './scale';
+import { Scale, Result, Status } from './scale';
+import { AppConfig } from '@libs/config';
 /**
  * YunmaiISM2 parser
  * Reference from Open Scale
@@ -6,13 +7,53 @@ import { Scale, ScaleConfig, Result, Status } from './scale';
  */
 export class YunmaiISM2 extends Scale {
   public static scaleName = 'Yun Mai ISM 2';
-  public config = (c: ScaleConfig): void => {
-    // this.connect();
-  };
+  public async config(c: AppConfig): Promise<void> {
+    const data = [
+      0x0d,
+      0x12,
+      0x10,
+      0x01,
+      0x00,
+      0x00,
+      0xf1,
+      0x22,
+      c.height,
+      c.gender === 'male' ? 0x01 : 0x02,
+      c.age,
+      0x55,
+      0x5a,
+      0x00,
+      0x00,
+      0x01, // kg or lb
+      0x03
+    ];
+    // checksum
+    let checksum = 0x00;
+    for (let i = 1; i < data.length; i++) {
+      checksum = checksum ^ data[i];
+    }
+    data.push(checksum);
+    const buf = new ArrayBuffer(18);
+    const view = new DataView(buf);
+    data.forEach(function(b, i) {
+      view.setUint8(i, b);
+    });
+    if (!this.server) throw 'Server not found';
+    const service = await this.server.getPrimaryService(
+      '0000ffe5-0000-1000-8000-00805f9b34fb'
+    );
+    const characteristic = await service.getCharacteristic(0xffe9);
+    console.log(buf);
+    await characteristic.writeValue(buf);
+    this.server.disconnect();
+  }
   protected async getDevice() {
     const device = await navigator.bluetooth.requestDevice({
       filters: [{ name: 'YUNMAI-ISM2-W' }],
-      optionalServices: ['0000ffe0-0000-1000-8000-00805f9b34fb']
+      optionalServices: [
+        '0000ffe0-0000-1000-8000-00805f9b34fb',
+        '0000ffe5-0000-1000-8000-00805f9b34fb'
+      ]
     });
     return device;
   }

@@ -1,4 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
+import { AppConfig } from '@libs/config';
 export enum Sex {
   Male,
   Female
@@ -7,10 +8,7 @@ export enum WeightUnit {
   KG,
   LB
 }
-export interface ScaleConfig {
-  sex: Sex;
-  weightUnit: WeightUnit;
-}
+
 export enum Status {
   IDLE,
   CONNECTING,
@@ -25,7 +23,7 @@ export interface Result {
 }
 export abstract class Scale {
   static scaleName: string;
-  abstract config(c: ScaleConfig): void;
+  abstract async config(c: AppConfig): Promise<void>;
   protected abstract async getDevice(): Promise<BluetoothDevice>;
   protected abstract async startReceiveData(): Promise<void>;
   protected abstract async parseData(data: DataView): Promise<Result>;
