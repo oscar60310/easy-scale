@@ -20,7 +20,7 @@ export class YunmaiISM2 extends Scale {
     await characteristic.startNotifications();
     characteristic.addEventListener(
       'characteristicvaluechanged',
-      this.handleCharacteristicValueChanged
+      this.handleCharacteristicValueChanged.bind(this)
     );
   }
   protected async parseData(data: DataView): Promise<Result> {

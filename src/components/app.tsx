@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader/root';
-import { PairDevice } from './pair-device';
+import { Device } from './device';
+import { YunmaiISM2 } from '@libs/scales/yunmai-ism2';
 
 const AppComponent = () => {
+  const yun = new YunmaiISM2();
   return (
     <div>
       React TS Pack Work!
-      <PairDevice />
+      <Device scale={yun} />
     </div>
   );
 };
