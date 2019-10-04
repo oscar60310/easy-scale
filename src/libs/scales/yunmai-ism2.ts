@@ -5,13 +5,13 @@ import { Scale, ScaleConfig, Result, Status } from './scale';
  * https://github.com/oliexdev/openScale/blob/master/android_app/app/src/main/java/com/health/openscale/core/bluetooth/BluetoothYunmaiSE_Mini.java
  */
 export class YunmaiISM2 extends Scale {
-  public name = 'Yun Mai ISM 2';
+  public static scaleName = 'Yun Mai ISM 2';
   public config = (c: ScaleConfig): void => {
     // this.connect();
   };
   protected async getDevice() {
     const device = await navigator.bluetooth.requestDevice({
-      acceptAllDevices: true,
+      filters: [{ name: 'YUNMAI-ISM2-W' }],
       optionalServices: ['0000ffe0-0000-1000-8000-00805f9b34fb']
     });
     return device;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Scale, Status } from '@libs/scales/scale';
 import { behaviorSubjectHook } from '@libs/rx-hook';
 import Button from '@material-ui/core/Button';
+import { ResultDisplay } from './result-display';
 export const Device = (props: { scale: Scale }) => {
   const status = behaviorSubjectHook<Status>(props.scale.status);
   const requestSearch = async () => {
@@ -58,7 +59,7 @@ export const Device = (props: { scale: Scale }) => {
         <div>
           <h2>Finish</h2>
           <div>
-            <div>{result.weight}</div>
+            <ResultDisplay data={result} />
           </div>
         </div>
       );
