@@ -1,4 +1,4 @@
-import { Scale, ScaleConfig, Result } from './scale';
+import { Scale, ScaleConfig, Result, Status } from './scale';
 /**
  * YunmaiISM2 parser
  * Reference from Open Scale
@@ -40,6 +40,7 @@ export class YunmaiISM2 extends Scale {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private handleCharacteristicValueChanged(event: any) {
     const value: DataView = event.target.value;
+    this.status.next(Status.RECEIVING);
     if (value.getUint8(3) === 2) {
       this.dataReceived(value);
     }

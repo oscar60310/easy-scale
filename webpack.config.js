@@ -17,7 +17,8 @@ module.exports = {
       {
         test: /\.(j|t)sx?$/,
         use: {
-          loader: 'awesome-typescript-loader'
+          loader: 'ts-loader',
+          options: { transpileOnly: true }
         }
       },
       {

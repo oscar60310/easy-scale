@@ -25,7 +25,6 @@
     "@types/web-bluetooth": "0.0.4",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
     "@typescript-eslint/parser": "^2.2.0",
-    "awesome-typescript-loader": "^5.2.1",
     "cross-env": "^5.2.1",
     "css-loader": "^3.2.0",
     "eslint": "^6.3.0",
@@ -44,6 +43,7 @@
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "ts-jest": "^24.1.0",
+    "ts-loader": "^6.2.0",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.6.3",
     "url-loader": "^2.1.0",
@@ -51,5 +51,7 @@
     "webpack-cli": "^3.3.8",
     "webpack-dev-server": "^3.8.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@material-ui/core": "^4.5.0"
+  }
 }

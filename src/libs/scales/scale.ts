@@ -45,7 +45,6 @@ export abstract class Scale {
   }
   public async startReceive() {
     try {
-      this.status.next(Status.RECEIVING);
       this.startReceiveData();
     } catch (e) {
       this.handleError(e);

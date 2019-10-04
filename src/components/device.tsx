@@ -1,6 +1,7 @@
 import React from 'react';
 import { Scale, Status } from '@libs/scales/scale';
 import { behaviorSubjectHook } from '@libs/rx-hook';
+import Button from '@material-ui/core/Button';
 export const Device = (props: { scale: Scale }) => {
   const status = behaviorSubjectHook<Status>(props.scale.status);
   const requestSearch = async () => {
@@ -13,7 +14,9 @@ export const Device = (props: { scale: Scale }) => {
       content = (
         <div>
           <h2>Ready to pair device</h2>
-          <button onClick={requestSearch}>Pair</button>
+          <Button variant="contained" color="primary" onClick={requestSearch}>
+            Pair
+          </Button>
         </div>
       );
       break;
