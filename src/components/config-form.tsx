@@ -18,6 +18,7 @@ import {
 } from '@material-ui/core';
 import { allScale } from '@libs/scales';
 import { setScaleType, setBodyData, getScale, loadConfig } from '@libs/config';
+import { Device } from './device';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -190,7 +191,8 @@ const SetScale = ({ next }) => {
   );
 };
 const Done = () => {
-  return <div>DONE</div>;
+  const scale = getScale();
+  return <Device scale={scale} />;
 };
 export const ConfigForm = () => {
   const [step, setStep] = React.useState(0);
