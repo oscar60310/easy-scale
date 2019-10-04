@@ -7,7 +7,6 @@ const AppComponent = () => {
   const yun = new YunmaiISM2();
   return (
     <div>
-      React TS Pack Work!
       <Device scale={yun} />
     </div>
   );
