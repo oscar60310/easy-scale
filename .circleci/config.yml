@@ -35,14 +35,14 @@ jobs:
             - ./node_modules
       - run:
           name: build
-          command: npm build
+          command: npm run build
       - run:
           name: deploy
-          command: npm deploy
+          command: npm run deploy
 
 workflows:
   version: 2
-  testing:
+  test_and_deploy:
     jobs:
       - test:
           filters:
@@ -50,9 +50,9 @@ workflows:
               only:
                 - master
                 - development
-  deploy:
-    jobs:
       - deploy:
+          requires:
+            - test
           filters:
             branches:
               only:
