@@ -9,7 +9,7 @@ export const Device = (props: { scale: Scale }) => {
   const status = behaviorSubjectHook<Status>(props.scale.status);
   const requestSearch = async () => {
     await props.scale.connect();
-    await props.scale.config(loadConfig());
+    // await props.scale.config(loadConfig());
     await props.scale.startReceive();
   };
   let content = <div></div>;
