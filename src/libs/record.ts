@@ -1,7 +1,7 @@
 import Dexie from 'dexie';
 import { Result } from './scales/scale';
 
-interface RecordData extends Result {
+export interface RecordData extends Result {
   time: Date;
 }
 class UserMeasureDatabase extends Dexie {
@@ -18,4 +18,8 @@ export const addRecord = (data: Result) => {
   const record: RecordData = { ...data, time: new Date() };
   const db = new UserMeasureDatabase();
   db.record.put(record);
+};
+export const getRecord = async () => {
+  const db = new UserMeasureDatabase();
+  return await db.record.orderBy('time').toArray();
 };
