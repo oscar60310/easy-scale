@@ -43,9 +43,7 @@ export class YunmaiISM2 extends Scale {
       '0000ffe5-0000-1000-8000-00805f9b34fb'
     );
     const characteristic = await service.getCharacteristic(0xffe9);
-    console.log(buf);
     await characteristic.writeValue(buf);
-    this.server.disconnect();
   }
   protected async getDevice() {
     const device = await navigator.bluetooth.requestDevice({

@@ -4,10 +4,12 @@ import { behaviorSubjectHook } from '@libs/rx-hook';
 import Button from '@material-ui/core/Button';
 import { ResultDisplay } from './result-display';
 import { Card, CardContent, Typography } from '@material-ui/core';
+import { loadConfig } from '@libs/config';
 export const Device = (props: { scale: Scale }) => {
   const status = behaviorSubjectHook<Status>(props.scale.status);
   const requestSearch = async () => {
     await props.scale.connect();
+    await props.scale.config(loadConfig());
     await props.scale.startReceive();
   };
   let content = <div></div>;

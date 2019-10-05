@@ -48,6 +48,9 @@ export abstract class Scale {
       this.handleError(e);
     }
   }
+  public disconnect() {
+    if (this.server) this.server.disconnect();
+  }
   protected async dataReceived(data: DataView) {
     try {
       this.result = await this.parseData(data);

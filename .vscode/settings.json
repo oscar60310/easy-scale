@@ -10,5 +10,8 @@
       "language": "typescriptreact",
       "autoFix": true
     }
+  ],
+  "cSpell.words": [
+    "dexie"
   ]
 }

@@ -2,10 +2,14 @@ import React from 'react';
 import { Result } from '@libs/scales/scale';
 import 'src/styles/result-display.scss';
 import { loadConfig } from '@libs/config';
+import { addRecord } from '@libs/record';
 
 export const ResultDisplay = (props: { data: Result }) => {
   const { data } = props;
   const config = loadConfig();
+  React.useEffect(() => {
+    addRecord(props.data);
+  }, []);
   return (
     <div className="result-display">
       <div className="measure-box">

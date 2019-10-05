@@ -168,6 +168,7 @@ const SetScale = ({ next }) => {
       const scale = getScale();
       await scale.connect();
       await scale.config(loadConfig());
+      scale.disconnect();
       next();
     } catch (e) {
       setError(e.message);
