@@ -3,6 +3,7 @@ import { Scale, Status } from '@libs/scales/scale';
 import { behaviorSubjectHook } from '@libs/rx-hook';
 import Button from '@material-ui/core/Button';
 import { ResultDisplay } from './result-display';
+import { Card, CardContent, Typography } from '@material-ui/core';
 export const Device = (props: { scale: Scale }) => {
   const status = behaviorSubjectHook<Status>(props.scale.status);
   const requestSearch = async () => {
@@ -13,57 +14,83 @@ export const Device = (props: { scale: Scale }) => {
   switch (status) {
     case Status.IDLE:
       content = (
-        <div>
-          <h2>Ready to pair device</h2>
-          <Button variant="contained" color="primary" onClick={requestSearch}>
+        <React.Fragment>
+          <Typography variant="h5">Connect to your weight scale.</Typography>
+          <Typography variant="body1">
+            We are ready to connect to your scale, after clicking PAIR button,
+            please select your device at the pop out menu.
+          </Typography>
+          <Button
+            style={{ width: '100%' }}
+            color="primary"
+            onClick={requestSearch}
+          >
             Pair
           </Button>
-        </div>
+        </React.Fragment>
       );
       break;
     case Status.CONNECTING:
       content = (
-        <div>
-          <h2>Connecting</h2>
-          <div>Please select your device at popout menu.</div>
-        </div>
+        <React.Fragment>
+          <Typography variant="h5">Connect to your weight scale.</Typography>
+          <Typography variant="body1">
+            We are trying to connect your device, Please select your device at
+            the pop out menu.
+          </Typography>
+        </React.Fragment>
       );
       break;
     case Status.CONNECTED:
       content = (
-        <div>
-          <h2>Connected</h2>
-          <div>Please stand to the weight scale.</div>
-        </div>
+        <React.Fragment>
+          <Typography variant="h5">Connected.</Typography>
+          <Typography variant="body1">
+            Nice! Now please stand on the scale.
+          </Typography>
+        </React.Fragment>
       );
       break;
     case Status.RECEIVING:
       content = (
-        <div>
-          <h2>Receiving</h2>
-        </div>
+        <React.Fragment>
+          <Typography variant="h5">Receiving ...</Typography>
+          <Typography variant="body1">
+            Please hold on, we are receiving data.
+          </Typography>
+        </React.Fragment>
       );
       break;
     case Status.FINISH:
       if (!props.scale.result) {
         content = (
-          <div>
-            <h2>Finish</h2>
-            <div>But no data found...</div>
-          </div>
+          <React.Fragment>
+            <Typography variant="h5">Finish</Typography>
+            <Typography variant="body1">
+              Something error... We can not get any data.
+            </Typography>
+          </React.Fragment>
         );
         break;
       }
       const result = props.scale.result;
       content = (
-        <div>
-          <h2>Finish</h2>
-          <div>
-            <ResultDisplay data={result} />
-          </div>
-        </div>
+        <React.Fragment>
+          <Typography variant="h5">Finish</Typography>
+          <Typography variant="body1">All Done! Here is the result:</Typography>
+          <ResultDisplay data={result} />
+        </React.Fragment>
       );
       break;
   }
-  return <div>{content}</div>;
+  return (
+    <Card style={{ width: 500, maxWidth: '100%' }}>
+      <CardContent>
+        <Typography color="textSecondary" variant="body2">
+          New Record
+        </Typography>
+        {content}
+      </CardContent>
+    </Card>
+  );
 };

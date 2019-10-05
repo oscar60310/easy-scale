@@ -22,7 +22,7 @@ export interface Result {
   bodyFat?: number;
 }
 export abstract class Scale {
-  static scaleName: string;
+  public static scaleName: string;
   abstract async config(c: AppConfig): Promise<void>;
   protected abstract async getDevice(): Promise<BluetoothDevice>;
   protected abstract async startReceiveData(): Promise<void>;
