@@ -6,7 +6,7 @@ export const Measure = () => {
   const [scale] = React.useState(getScale());
 
   return (
-    <div>
+    <div style={{ width: 500, maxWidth: '100%' }}>
       <Device scale={scale} />
       <History />
     </div>

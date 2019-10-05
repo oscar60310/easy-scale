@@ -86,7 +86,7 @@ export const Device = (props: { scale: Scale }) => {
       break;
   }
   return (
-    <Card style={{ width: 500, maxWidth: '100%' }}>
+    <Card>
       <CardContent>
         <Typography color="textSecondary" variant="body2">
           New Record
