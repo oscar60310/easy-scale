@@ -9,6 +9,8 @@ Demo site: https://oscar60310.github.io/easy-scale
 - [x] Sending configuration data to scales.
 - [x] Receive weight and body fat data.
 - [ ] Analysis dashboard
+- [ ] PWA
+- [ ] Daily reminder
 
 ### Support Device
 
