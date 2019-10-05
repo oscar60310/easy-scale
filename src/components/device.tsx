@@ -84,6 +84,21 @@ export const Device = (props: { scale: Scale }) => {
         </React.Fragment>
       );
       break;
+    case Status.ERROR:
+      content = (
+        <React.Fragment>
+          <Typography variant="h5">Something wrong...</Typography>
+
+          <Button
+            style={{ width: '100%' }}
+            color="primary"
+            onClick={requestSearch}
+          >
+            Re Pair
+          </Button>
+        </React.Fragment>
+      );
+      break;
   }
   return (
     <Card>

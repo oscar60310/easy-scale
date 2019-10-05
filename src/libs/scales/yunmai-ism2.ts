@@ -56,16 +56,22 @@ export class YunmaiISM2 extends Scale {
     return device;
   }
   protected async startReceiveData() {
-    if (!this.server) throw 'Server not found';
-    const service = await this.server.getPrimaryService(
-      '0000ffe0-0000-1000-8000-00805f9b34fb'
-    );
-    const characteristic = await service.getCharacteristic(0xffe4);
-    await characteristic.startNotifications();
-    characteristic.addEventListener(
-      'characteristicvaluechanged',
-      this.handleCharacteristicValueChanged.bind(this)
-    );
+    try {
+      if (!this.server) throw 'Server not found';
+      if (!this.server.connected) this.server.connect();
+      const service = await this.server.getPrimaryService(
+        '0000ffe0-0000-1000-8000-00805f9b34fb'
+      );
+      const characteristic = await service.getCharacteristic(0xffe4);
+      await characteristic.startNotifications();
+      characteristic.addEventListener(
+        'characteristicvaluechanged',
+        this.handleCharacteristicValueChanged.bind(this)
+      );
+    } catch (e) {
+      console.log(e.message);
+      throw e;
+    }
   }
   protected async parseData(data: DataView): Promise<Result> {
     // for (let i = 0; i < data.byteLength; i++) {

@@ -28,22 +28,22 @@ export abstract class Scale {
   protected abstract async startReceiveData(): Promise<void>;
   protected abstract async parseData(data: DataView): Promise<Result>;
   protected server: BluetoothRemoteGATTServer | null = null;
-
+  protected device: BluetoothDevice | null = null;
   public result: Result | null = null;
   public status = new BehaviorSubject(Status.IDLE);
   public async connect() {
     this.status.next(Status.CONNECTING);
-    const device = await this.getDevice();
-    if (!device.gatt) {
+    this.device = await this.getDevice();
+    if (!this.device.gatt) {
       this.handleError(new Error('Device gatt not found'));
       return;
     }
-    this.server = await device.gatt.connect();
+    this.server = await this.device.gatt.connect();
     this.status.next(Status.CONNECTED);
   }
   public async startReceive() {
     try {
-      this.startReceiveData();
+      await this.startReceiveData();
     } catch (e) {
       this.handleError(e);
     }
