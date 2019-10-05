@@ -17,7 +17,13 @@ import {
   TextField
 } from '@material-ui/core';
 import { allScale } from '@libs/scales';
-import { setScaleType, setBodyData, getScale, loadConfig } from '@libs/config';
+import {
+  setScaleType,
+  setBodyData,
+  getScale,
+  loadConfig,
+  setSetup
+} from '@libs/config';
 import { Device } from './device';
 
 const useStyles = makeStyles(theme => ({
@@ -190,18 +196,31 @@ const SetScale = ({ next }) => {
     </React.Fragment>
   );
 };
-const Done = () => {
-  const scale = getScale();
-  return <Device scale={scale} />;
+const Done = ({ update }) => {
+  const start = () => {
+    setSetup(true);
+    update();
+  };
+  return (
+    <React.Fragment>
+      <Typography variant="h5">Complete</Typography>
+      <Typography variant="body1" style={{ marginBottom: 10 }}>
+        You can now get your first record.
+      </Typography>
+      <Button color="primary" onClick={start} style={{ width: '100%' }}>
+        Get Start
+      </Button>
+    </React.Fragment>
+  );
 };
-export const ConfigForm = () => {
+export const ConfigForm = ({ update }) => {
   const [step, setStep] = React.useState(0);
   const next = () => setStep(step + 1);
   const stepper = [
     <Welcome key="Welcome" next={next} />,
     <BodyInformation key="Body" next={next} />,
     <SetScale key="Set" next={next} />,
-    <Done key="Done" />
+    <Done key="Done" update={update} />
   ];
   return (
     <Card style={{ width: 500, maxWidth: '80%' }}>

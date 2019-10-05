@@ -1,9 +1,14 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader/root';
-import { YunmaiISM2 } from '@libs/scales/yunmai-ism2';
 import { ConfigForm } from './config-form';
+import { isSetup } from '@libs/config';
+import { Measure } from './measure';
 
 const AppComponent = () => {
+  const [configureDone, setConfigureDone] = React.useState(isSetup());
+  const update = () => {
+    setConfigureDone(isSetup());
+  };
   return (
     <div
       style={{
@@ -14,7 +19,7 @@ const AppComponent = () => {
         height: '100%'
       }}
     >
-      <ConfigForm />
+      {configureDone ? <Measure /> : <ConfigForm update={update} />}
     </div>
   );
 };

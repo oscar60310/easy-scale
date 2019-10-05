@@ -71,7 +71,7 @@ export class YunmaiISM2 extends Scale {
   }
   protected async parseData(data: DataView): Promise<Result> {
     const weight = (data.getUint8(13) * 16 * 16 + data.getUint8(14)) / 100;
-    const bodyFat = data.getUint8(17) / 100;
+    const bodyFat = (data.getUint8(17) * 16 * 16 + data.getUint8(18)) / 100;
 
     return {
       weight,

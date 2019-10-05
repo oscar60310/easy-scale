@@ -7,6 +7,7 @@ export interface AppConfig {
   height: number;
   gender: string;
   age: number;
+  setup: boolean;
 }
 
 export const loadConfig = () => {
@@ -15,7 +16,8 @@ export const loadConfig = () => {
     scaleType: '',
     height: 60,
     gender: 'male',
-    age: 25
+    age: 25,
+    setup: false
   };
   if (data) {
     config = JSON.parse(data);
@@ -38,4 +40,10 @@ export const getScale = (): Scale => {
       return new YunmaiISM2();
   }
   throw `Can't find type ${type}`;
+};
+export const isSetup = () => {
+  return loadConfig().setup || false;
+};
+export const setSetup = (setup: boolean) => {
+  writeConfig({ ...loadConfig(), setup });
 };
