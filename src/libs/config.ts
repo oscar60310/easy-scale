@@ -8,6 +8,7 @@ export interface AppConfig {
   gender: string;
   age: number;
   setup: boolean;
+  apiEndPoint: string;
 }
 
 export const loadConfig = () => {
@@ -17,6 +18,7 @@ export const loadConfig = () => {
     height: 60,
     gender: 'male',
     age: 25,
+    apiEndPoint: '',
     setup: false
   };
   if (data) {
@@ -29,6 +31,12 @@ export const writeConfig = (data: AppConfig) => {
 };
 export const setScaleType = (n: string) => {
   writeConfig({ ...loadConfig(), scaleType: n });
+};
+export const setAPIEndpoint = (n: string) => {
+  writeConfig({ ...loadConfig(), apiEndPoint: n });
+};
+export const getAPIEndpoint = () => {
+  return loadConfig().apiEndPoint || '';
 };
 export const setBodyData = (gender: string, height: number, age: number) => {
   writeConfig({ ...loadConfig(), gender, height, age });

@@ -22,7 +22,8 @@ import {
   setBodyData,
   getScale,
   loadConfig,
-  setSetup
+  setSetup,
+  setAPIEndpoint
 } from '@libs/config';
 import { Device } from './device';
 
@@ -197,6 +198,48 @@ const SetScale = ({ next }) => {
     </React.Fragment>
   );
 };
+const APIEndPointSetUp = ({ next }) => {
+  const classes = useStyles();
+  const [url, setUrl] = React.useState('');
+  const submit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setAPIEndpoint(url);
+    next();
+  };
+  return (
+    <React.Fragment>
+      <Typography variant="h5">API Endpoint setup</Typography>
+      <Typography variant="body1">
+        (Optional) You can set a api end point path, we will send a post request
+        to your url when finish measuring.
+      </Typography>
+      <form onSubmit={submit}>
+        <FormControl
+          component="fieldset"
+          className={classes.formControl}
+          required
+        >
+          <FormLabel component="legend">End Point</FormLabel>
+          <TextField
+            id="end-point"
+            type="text"
+            margin="normal"
+            value={url}
+            onChange={e => setUrl(e.target.value)}
+          />
+        </FormControl>
+        <Button
+          type="submit"
+          color="primary"
+          variant="contained"
+          style={{ width: '100%', marginTop: 10 }}
+        >
+          Submit
+        </Button>
+      </form>
+    </React.Fragment>
+  );
+};
 const Done = ({ update }) => {
   const start = () => {
     setSetup(true);
@@ -221,6 +264,7 @@ export const ConfigForm = ({ update }) => {
     <Welcome key="Welcome" next={next} />,
     <BodyInformation key="Body" next={next} />,
     <SetScale key="Set" next={next} />,
+    <APIEndPointSetUp key="API" next={next} />,
     <Done key="Done" update={update} />
   ];
   return (
