@@ -1,5 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
-import { AppConfig } from '@libs/config';
+import { AppConfig, getAPIEndpoint } from '@libs/config';
+import dayjs from 'dayjs';
 export enum Sex {
   Male,
   Female
@@ -54,8 +55,20 @@ export abstract class Scale {
   protected async dataReceived(data: DataView) {
     try {
       this.result = await this.parseData(data);
-      this.status.next(Status.FINISH);
+
       if (this.server) this.server.disconnect();
+      const endPoint = getAPIEndpoint();
+      if (endPoint.length > 0) {
+        await fetch(endPoint, {
+          method: 'POST',
+          body: JSON.stringify({
+            time: dayjs().format('YYYY/MM/DD HH:mm:ss'),
+            weight: this.result.weight,
+            bodyfat: this.result.bodyFat
+          })
+        });
+      }
+      this.status.next(Status.FINISH);
     } catch (e) {
       this.handleError(e);
     }
